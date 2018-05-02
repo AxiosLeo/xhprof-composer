@@ -1,0 +1,28 @@
+{
+  "name": "axios/xhprof-composer",
+  "description": "composer library for xhprof",
+  "version":"0.0.1",
+  "type": "library",
+  "license": "MIT",
+  "homepage": "https://github.com/AxiosCros/xhprof-composer",
+  "authors": [
+    {
+      "name": "Axios",
+      "email": "axioscros@aliyun.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0"
+  },
+  "require-dev": {
+    "composer/composer": "1.0.*@dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "xhprof\\": "src"
+    },
+    "files":[
+      "helper.php"
+    ]
+  }
+}
