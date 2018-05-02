@@ -16,10 +16,6 @@ class Runs
 {
     protected $driver;
 
-    protected $driverList = [
-        'file', 'mongo', 'redis'
-    ];
-
     protected $name = 'xhprof';
 
     protected $options = [
@@ -37,20 +33,16 @@ class Runs
     {
         $this->options = array_merge($this->options, $options);
         $this->name = $name;
-
-        $driver = strtolower($this->options['driver']);
-        if (!in_array($driver, $this->driverList)) {
-            $driver = 'file';
-        }
-
-        $driver = "xhprof\\driver\\" . ucfirst($driver);
-
-        $this->driverObj = new $driver($this->options);
+        $this->driverObj = xhprof_driver($this->options);
     }
 
     public function getData()
     {
         return $this->driverObj->get($this->run_id);
+    }
+
+    public function getRunId(){
+        return $this->run_id;
     }
 
     public function saveData(array $xhprof_data)
