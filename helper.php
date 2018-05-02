@@ -38,3 +38,27 @@ if(!function_exists('dump')){
         }
     }
 }
+
+if(!function_exists('xhprof_driver')){
+    /**
+     * @param $options
+     * @return \xhprof\driver\Driver
+     */
+    function xhprof_driver(array $options){
+        if(!isset($options['driver'])){
+            $options['driver'] = 'file';
+        }
+        $driver = strtolower($options['driver']);
+        $driverList = [
+            'file', 'mongo', 'redis'
+        ];
+        if (!in_array($driver, $driverList)) {
+            $driver = 'file';
+        }
+
+        $driver = "xhprof\\driver\\" . ucfirst($driver);
+
+        $driverObj = new $driver($options);
+        return $driverObj;
+    }
+}
