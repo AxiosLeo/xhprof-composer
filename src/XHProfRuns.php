@@ -19,11 +19,30 @@ class XHProfRuns
         return self::$instance[$name];
     }
 
-    public static function find($run_id){
-
+    public static function query(array $options = []){
+        return new self($options);
     }
 
-    public static function all($page = 1, $limit = 100){
+    private $options = [];
 
+    public function __construct(array $options)
+    {
+        $this->options = $options;
+    }
+
+    public function find($run_id){
+        $driver = xhprof_driver($this->options);
+        return $driver->get($run_id);
+    }
+
+    public function select($run_id_list = []){
+        $list = []; $n = 0;
+        foreach ($run_id_list as $run_id) {
+            $list[$n]['run_id'] = $run_id;
+            $list[$n]['data']   = XHProfRuns::query()->find($run_id);
+            $n++;
+        }
+
+        return $list;
     }
 }
