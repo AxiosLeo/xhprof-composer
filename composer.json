@@ -15,7 +15,8 @@
     "php": ">=7.0"
   },
   "require-dev": {
-    "composer/composer": "1.0.*@dev"
+    "composer/composer": "1.0.*@dev",
+    "axios/tpr-db": "dev-master"
   },
   "autoload": {
     "psr-4": {

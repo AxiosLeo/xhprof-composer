@@ -8,11 +8,14 @@
  */
 namespace xhprof;
 
+use xhprof\lib\Compute;
 use xhprof\lib\Graph;
+use xhprof\lib\GraphRender;
+use xhprof\lib\Report;
 
 class XHProfReport
 {
-    public static function options(array $options){
+    public static function options(array $options = []){
         return new self($options);
     }
 
@@ -31,6 +34,9 @@ class XHProfReport
             ->setSource($source)
             ->setFileExt($file_ext)
             ->setThreshold($threshold);
+
+        GraphRender::image($Graph)
+            ->create();
     }
 
     public function graphDiff($run1,$run2,$source = 'xhprof' , $file_ext = 'png' , $threshold = 0.01){
@@ -43,7 +49,24 @@ class XHProfReport
 
     }
 
-    public function report(){
+    /**
+     * @param $run_id
+     * @return Report
+     */
+    public function report($run_id){
+        $rows = XHProfRuns::query()->find($run_id);
+        $list = Compute::format($rows);
+        $tree = Compute::infiniteTree($list);
+        $root = $tree[0];
+        xhprof_compute_info($tree, $root['data']['wt'], $root['data']['mu'], $root['data']['cpu']);
 
+        $report = new Report([
+            'total_wall_time' => $root['data']['wt'],
+            'total_memory'    => $root['data']['mu'],
+            'total_cpu_time'  => $root['data']['cpu'],
+            'list' => $list,
+            'tree' => $tree
+        ]);
+        return $report;
     }
 }

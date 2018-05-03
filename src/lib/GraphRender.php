@@ -18,9 +18,35 @@ class GraphRender
         $run_id = $Graph->getRunId();
         $run_data = XHProfRuns::query()->find($run_id);
 
-        $max_width = 5;
-        $max_height = 3.5;
-        $max_fontsize = 35;
-        $max_sizing_ratio = 20;
+        return new self($run_data);
+    }
+
+    private $image;
+
+    private $rows;
+
+    protected function __construct($rows)
+    {
+        $image = imagecreate(400,600);
+        $this->image = $image;
+        $this->rows  = $rows;
+    }
+
+    public function create($background = [255,255,255]){
+        imagecolorallocate($this->image,$background[0],$background[1],$background[2]);
+
+//        $tree = Compute::format($this->rows);
+
+        return $this;
+    }
+
+    public function render(){
+        ob_start();
+        imagepng($this->image);
+        $content = ob_get_clean();
+        imagedestroy($this->image);
+        header("Content-Length:".strlen($content));
+        header("Content-Type:image/png");
+        echo $content;
     }
 }
