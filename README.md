@@ -7,8 +7,9 @@
 composer require axios/xhprof-composer
 ```
 
-## Example
+## Use
 
+* create record of xhprof_runs 
 ```php
 
 namespace xhprof;
@@ -26,11 +27,13 @@ dump($a);
 /*** end ***/
 
 $runs = XHProfDebug::end();
-
-
-// Query Data
 $run_id = $runs->getRunId();
 dump($run_id);
+
+```
+
+* query 
+```php
 dump(XHProfRuns::query()->find($run_id));
 
 $list = [
@@ -42,4 +45,15 @@ $list = [
 $data = XHProfRuns::query()->select($list);
 dump($data);
 
+```
+
+* get report
+
+```php
+$report = XHProfReport::options()->report($run_id);
+
+dump($report->getTotalCpuTime());
+dump($report->getTotalMemory());
+dump($report->getList());
+dump($report->getTree());
 ```
