@@ -1,6 +1,27 @@
 # xhprof-composer
 > composer library for xhprof
 
+## Need install xhprof php extension
+
+```shell
+git clone https://github.com/longxinH/xhprof.git
+cd xhprof/extension/
+/usr/local/php7/bin/phpize
+./configure --with-php-config=/usr/local/php7/bin/php-config
+make
+make install
+
+vim /usr/local/php7/lib/php.ini
+```
+
+```shell
+extension = xhprof.so
+```
+
+```shell
+service php-fpm restart
+```
+
 ## Install
 
 ```shell
