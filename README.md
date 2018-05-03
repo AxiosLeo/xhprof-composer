@@ -15,7 +15,7 @@ vim /usr/local/php7/lib/php.ini
 ```
 
 ```shell
-extension = xhprof.so
+extension=xhprof.so;
 ```
 
 ```shell
