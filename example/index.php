@@ -1,7 +1,6 @@
 <?php
 /**
  * @author: axios
- *
  * @email: axiosleo@foxmail.com
  * @blog:  http://hanxv.cn
  * @datetime: 2018/5/2 13:50
@@ -9,23 +8,24 @@
 
 namespace xhprof;
 
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
-XHProfDebug::start();
+XHProf::start();
 
 /*** begin ***/
 
 dump('this is example for use xhprof-composer');
-$a = pow(2,10);
+$a = pow(2, 10);
 dump($a);
 
 /*** end ***/
 
-$runs = XHProfDebug::end();
+$report = XHProf::end('test');
+dump($report);
+$run_id = XHProf::getRunId('test');
 
 
 // Query Data
-$run_id = $runs->getRunId();
 dump($run_id);
 dump(XHProfRuns::query()->find($run_id));
 
