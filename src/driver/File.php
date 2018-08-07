@@ -8,20 +8,17 @@
 
 namespace xhprof\driver;
 
+use xhprof\XHProf;
 use xhprof\XHProfDriver;
 
 class File extends XHProfDriver
 {
     protected $dir = '';
 
-    public function __construct($options)
+    public function __construct()
     {
-        $this->options = $options;
-
         $dir = ini_get("xhprof.output_dir");
-        if (empty($dir)) {
-            $dir = "/tmp/xhprof";
-        }
+        XHProf::options()->get('file.output_dir', $dir);
         if (!file_exists($dir)) {
             mkdir($dir, 0777);
         }
