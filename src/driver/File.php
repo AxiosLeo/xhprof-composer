@@ -1,25 +1,29 @@
 <?php
 /**
  * @author: axios
- *
  * @email: axiosleo@foxmail.com
  * @blog:  http://hanxv.cn
  * @datetime: 2018/5/2 11:08
  */
+
 namespace xhprof\driver;
 
-class File extends Driver
+use xhprof\XHProfDriver;
+
+class File extends XHProfDriver
 {
     protected $dir = '';
 
-    public function __construct()
+    public function __construct($options)
     {
+        $this->options = $options;
+
         $dir = ini_get("xhprof.output_dir");
-        if(empty($dir)){
+        if (empty($dir)) {
             $dir = "/tmp/xhprof";
         }
-        if(!file_exists($dir)){
-            mkdir($dir,0777);
+        if (!file_exists($dir)) {
+            mkdir($dir, 0777);
         }
         $this->dir = $dir;
     }
@@ -27,7 +31,7 @@ class File extends Driver
     public function save($run_id, $data)
     {
         $xhprof_data = serialize($data);
-        $file_name = $this->fileName($run_id);
+        $file_name   = $this->fileName($run_id);
 
         $file = fopen($file_name, 'w');
 
@@ -48,9 +52,10 @@ class File extends Driver
         return unserialize(file_get_contents($file_name));
     }
 
-    private function fileName($run_id) {
+    private function fileName($run_id)
+    {
 
-        $filename = "_".$run_id.".xhprof_log";
+        $filename = "_" . $run_id . ".xhprof_log";
         return $this->dir . "/" . $filename;
     }
 }
