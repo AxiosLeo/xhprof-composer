@@ -1,7 +1,6 @@
 <?php
 /**
  * @author: axios
- *
  * @email: axiosleo@foxmail.com
  * @blog:  http://hanxv.cn
  * @datetime: 2018/5/2 13:28
@@ -9,39 +8,32 @@
 
 namespace xhprof\lib;
 
-
-use xhprof\driver\Driver;
+use xhprof\XHProfDriver;
 
 class Runs
 {
-    protected $driver;
-
     protected $name = 'xhprof';
 
-    protected $options = [
-        'driver' => 'file'
-    ];
-
     /**
-     * @var Driver
+     * @var XHProfDriver
      */
-    protected $driverObj;
+    protected $driver;
 
     protected $run_id = null;
 
-    public function __construct(array $options, $name)
+    public function __construct($name)
     {
-        $this->options = array_merge($this->options, $options);
-        $this->name = $name;
-        $this->driverObj = xhprof_driver($this->options);
+        $this->name   = $name;
+        $this->driver = XHProfDriver::instance();
     }
 
     public function getData()
     {
-        return $this->driverObj->get($this->run_id);
+        return $this->driver->get($this->run_id);
     }
 
-    public function getRunId(){
+    public function getRunId()
+    {
         return $this->run_id;
     }
 
@@ -51,7 +43,7 @@ class Runs
             $this->run_id = $this->makeRunId($this->name);
         }
 
-        $this->driverObj->save($this->run_id, $xhprof_data);
+        $this->driver->save($this->run_id, $xhprof_data);
 
         return $this->run_id;
     }
