@@ -8,40 +8,41 @@
 
 namespace xhprof;
 
-use api\tool\lib\ArrayTool;
 use xhprof\lib\Compute;
+use xhprof\lib\Option;
 use xhprof\lib\Report;
 use xhprof\lib\Tool;
 
 class XHProf
 {
-    public static function start($flags = XHPROF_FLAGS_MEMORY | XHPROF_FLAGS_CPU | XHPROF_FLAGS_NO_BUILTINS, array $options = [])
+    protected static $runs = [];
+
+    public static function start($flags = XHPROF_FLAGS_MEMORY | XHPROF_FLAGS_CPU | XHPROF_FLAGS_NO_BUILTINS)
     {
-        $ignore = [
-            'xhprof\XHProfDebug::end'
-        ];
+        $ignore = self::options()->get('xhprof.ignored_functions', []);
+        $ignore = array_merge($ignore, ['xhprof\XHProf::end']);
+        self::options()->set('xhprof.ignored_function', $ignore);
 
-        $options['ignored_functions'] = isset($options['ignored_functions']) ? array_merge($options['ignored_functions'], $ignore) : $ignore;
-
-        xhprof_enable($flags, $options);
+        xhprof_enable($flags, self::options()->get('xhprof', []));
     }
 
-    public static function end($name = 'xhprof', array $options = [])
+    public static function end($name = 'xhprof')
     {
         $xhprof_data = xhprof_disable();
-        $run_id      = XHProfRuns::instance($name, $options)->saveData($xhprof_data);
+        $run_id      = XHProfRuns::instance($name)->saveData($xhprof_data);
+
+        self::$runs[$name] = $run_id;
         return self::report($run_id);
     }
 
-    private static $options;
+    public static function getRunId($name = 'xhprof')
+    {
+        return isset(self::$runs[$name]) ? self::$runs[$name] : null;
+    }
 
     public static function options(array $options = [])
     {
-        if (is_null(self::$options)) {
-            self::$options = ArrayTool::instance([]);
-        }
-        self::$options->set($options);
-        return self::$options;
+        return Option::instance($options);
     }
 
     public static function report($run_id)
