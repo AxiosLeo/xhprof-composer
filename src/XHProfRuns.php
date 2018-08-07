@@ -9,17 +9,17 @@ class XHProfRuns
     protected static $instance = [];
 
     /**
-     * @param array $options
      * @param string $name
      * @return Runs
      */
-    public static function instance($name = 'xhprof', array $options = []): Runs
+    public static function instance($name = 'xhprof'): Runs
     {
-        self::$instance[$name] = new Runs($options, $name);
+        self::$instance[$name] = new Runs($name);
         return self::$instance[$name];
     }
 
-    public static function query(array $options = []){
+    public static function query(array $options = [])
+    {
         return new self($options);
     }
 
@@ -30,13 +30,16 @@ class XHProfRuns
         $this->options = $options;
     }
 
-    public function find($run_id){
-        $driver = xhprof_driver($this->options);
+    public function find($run_id)
+    {
+        $driver = XHProfDriver::instance();
         return $driver->get($run_id);
     }
 
-    public function select($run_id_list = []){
-        $list = []; $n = 0;
+    public function select($run_id_list = [])
+    {
+        $list = [];
+        $n    = 0;
         foreach ($run_id_list as $run_id) {
             $list[$n]['run_id'] = $run_id;
             $list[$n]['data']   = XHProfRuns::query()->find($run_id);
