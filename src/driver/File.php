@@ -18,8 +18,11 @@ class File extends XHProfDriver
     public function __construct()
     {
         $dir = ini_get("xhprof.output_dir");
+        if(empty($dir)){
+            $dir = '/tmp/xhprof';
+        }
         XHProf::options()->get('file.output_dir', $dir);
-        if (!file_exists($dir)) {
+        if (!file_exists($dir)) {dump($dir);
             mkdir($dir, 0777);
         }
         $this->dir = $dir;
