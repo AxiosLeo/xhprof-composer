@@ -37,3 +37,11 @@ $list = [
 
 $data = XHProfRuns::query()->select($list);
 dump($data);
+
+
+$report = XHProf::report($run_id);
+
+dump($report->getTotalCpuTime());
+dump($report->getTotalMemory());
+dump($report->getList());
+dump($report->getTree());
