@@ -37,18 +37,20 @@ namespace xhprof;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-XHProfDebug::start();
+
+XHProf::start();
 
 /*** begin ***/
 
 dump('this is example for use xhprof-composer');
-$a = pow(2,10);
+$a = pow(2, 10);
 dump($a);
 
 /*** end ***/
 
-$runs = XHProfDebug::end();
-$run_id = $runs->getRunId();
+$report = XHProf::end('test');
+dump($report);
+$run_id = XHProf::getRunId('test');
 dump($run_id);
 
 ```
@@ -71,7 +73,7 @@ dump($data);
 * get report
 
 ```php
-$report = XHProfReport::options()->report($run_id);
+$report = XHProf::report($run_id);
 
 dump($report->getTotalCpuTime());
 dump($report->getTotalMemory());
