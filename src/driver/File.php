@@ -9,9 +9,9 @@
 namespace xhprof\driver;
 
 use xhprof\XHProf;
-use xhprof\XHProfDriver;
+use xhprof\lib\Driver;
 
-class File extends XHProfDriver
+class File extends Driver
 {
     protected $dir = '';
 

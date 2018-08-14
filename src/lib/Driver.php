@@ -6,9 +6,11 @@
  * @datetime: 2018/8/7 15:28
  */
 
-namespace xhprof;
+namespace xhprof\lib;
 
-abstract class XHProfDriver
+use xhprof\XHProf;
+
+abstract class Driver
 {
     private static $instance;
 

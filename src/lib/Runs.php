@@ -8,14 +8,12 @@
 
 namespace xhprof\lib;
 
-use xhprof\XHProfDriver;
-
 class Runs
 {
     protected $name = 'xhprof';
 
     /**
-     * @var XHProfDriver
+     * @var Driver
      */
     protected $driver;
 
@@ -24,7 +22,7 @@ class Runs
     public function __construct($name)
     {
         $this->name   = $name;
-        $this->driver = XHProfDriver::instance();
+        $this->driver = Driver::instance();
     }
 
     public function getData()

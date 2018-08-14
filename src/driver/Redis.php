@@ -10,9 +10,9 @@ namespace xhprof\driver;
 
 use Predis\Client;
 use xhprof\XHProf;
-use xhprof\XHProfDriver;
+use xhprof\lib\Driver;
 
-class Redis extends XHProfDriver
+class Redis extends Driver
 {
     private $redis;
 

@@ -3,6 +3,7 @@
 namespace xhprof;
 
 use xhprof\lib\Runs;
+use xhprof\lib\Driver;
 
 class XHProfRuns
 {
@@ -32,7 +33,7 @@ class XHProfRuns
 
     public function find($run_id)
     {
-        $driver = XHProfDriver::instance();
+        $driver = Driver::instance();
         return $driver->get($run_id);
     }
 

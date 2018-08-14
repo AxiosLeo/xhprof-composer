@@ -10,9 +10,9 @@ namespace xhprof\driver;
 
 use tpr\db\Db;
 use xhprof\XHProf;
-use xhprof\XHProfDriver;
+use xhprof\lib\Driver;
 
-class Mongo extends XHProfDriver
+class Mongo extends Driver
 {
     private $mongo;
 
