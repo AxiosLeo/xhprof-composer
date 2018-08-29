@@ -1,3 +1,7 @@
+[![Latest Stable Version](https://poser.pugx.org/axios/xhprof-composer/v/stable)](https://packagist.org/packages/axios/xhprof-composer)
+[![License](https://poser.pugx.org/axios/xhprof-composer/license)](https://packagist.org/packages/axios/xhprof-composer)
+
+
 # xhprof-composer
 > composer library for xhprof
 
