@@ -1,11 +1,11 @@
 <?php
 /**
  * @author: axios
- *
  * @email: axiosleo@foxmail.com
  * @blog:  http://hanxv.cn
  * @datetime: 2018/5/2 10:27
  */
+
 namespace xhprof\lib;
 
 class Graph
@@ -30,52 +30,62 @@ class Graph
         return $this;
     }
 
-    public function setRunId($run_id){
+    public function setRunId($run_id)
+    {
         $this->run = $run_id;
         return $this;
     }
 
-    public function getRunId(){
+    public function getRunId()
+    {
         return $this->run;
     }
 
-    public function setSource($source){
+    public function setSource($source)
+    {
         $this->source = $source;
         return $this;
     }
 
-    public function getSource(){
+    public function getSource()
+    {
         return $this->source;
     }
 
-    public function setFileExt($ext = 'png'){
+    public function setFileExt($ext = 'png')
+    {
         $this->ext = $ext;
         return $this;
     }
 
-    public function getFileExt(){
+    public function getFileExt()
+    {
         return $this->ext;
     }
 
-    public function setThreshold($threshold){
+    public function setThreshold($threshold)
+    {
         $this->threshold = $threshold;
         return $this;
     }
 
-    public function getThreshold(){
+    public function getThreshold()
+    {
         return $this->threshold;
     }
 
-    public function setDiffRun($run1,$run2){
+    public function setDiffRun($run1, $run2)
+    {
         $this->run_compare1 = $run1;
         $this->run_compare2 = $run2;
         return $this;
     }
 
-    public function getDiffRun(){
+    public function getDiffRun()
+    {
         return [
-            'run1'=>$this->run_compare1,
-            'run2'=>$this->run_compare2
+            'run1' => $this->run_compare1,
+            'run2' => $this->run_compare2
         ];
     }
 }
