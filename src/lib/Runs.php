@@ -35,7 +35,7 @@ class Runs
         return $this->run_id;
     }
 
-    public function saveData(array $xhprof_data)
+    public function saveData($xhprof_data)
     {
         if ($this->run_id === null) {
             $this->run_id = $this->makeRunId($this->name);

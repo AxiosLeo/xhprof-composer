@@ -1,8 +1,8 @@
 <?php
 /**
- * @author: axios
- * @email: axiosleo@foxmail.com
- * @blog:  http://hanxv.cn
+ * @author  : axios
+ * @email   : axiosleo@foxmail.com
+ * @blog    :  http://hanxv.cn
  * @datetime: 2018/5/2 11:08
  */
 
@@ -18,11 +18,12 @@ class File extends Driver
     public function __construct()
     {
         $dir = ini_get("xhprof.output_dir");
-        if(empty($dir)){
+        if (empty($dir)) {
             $dir = '/tmp/xhprof';
         }
         XHProf::options()->get('file.output_dir', $dir);
-        if (!file_exists($dir)) {dump($dir);
+        if (!file_exists($dir)) {
+            dump($dir);
             mkdir($dir, 0777);
         }
         $this->dir = $dir;
@@ -30,6 +31,9 @@ class File extends Driver
 
     public function save($run_id, $data)
     {
+        if (empty($data)) {
+            $data = "";
+        }
         $xhprof_data = serialize($data);
         $file_name   = $this->fileName($run_id);
 
